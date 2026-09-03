@@ -10,7 +10,7 @@ class Solution {
             sum += nums[i];
             int ques = sum - k;
             //int freq = map.get(sum-k,map.getOrDefault(sum-k,0)+1);we cannot get and put/change values at same timw
-            int freq = map.getOrDefault(sum-k,0);
+            int freq = map.getOrDefault(sum-k,0);//this line means get freq of sum-k, if not exist in map return 0
             res += freq;
             map.put(sum,map.getOrDefault(sum,0)+1);
         }
