@@ -1,21 +1,21 @@
 class Solution {
     public List<String> buildArray(int[] target, int n) {
-        List<String> res = new ArrayList<>();
-
-        int num = 1;
-
-        for (int i = 0; i < target.length; i++) {
-
-            while (num < target[i]) {
-                res.add("Push");
-                res.add("Pop");
-                num++;
+        Stack<Integer> sack = new Stack<>();
+        ArrayList<String> res = new ArrayList<>();
+        int q = target.length;
+        int j =0;
+        for (int i = 1; i <= n; i++) {
+            if (j<q) {
+                if (i == target[j]) {
+                    res.add("Push");
+                    j++;
+                } else {
+                    res.add("Push");
+                    res.add("Pop");
+                }
             }
 
-            res.add("Push");
-            num++;
         }
-
         return res;
     }
 }
