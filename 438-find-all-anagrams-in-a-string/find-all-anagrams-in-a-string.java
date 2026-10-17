@@ -1,35 +1,34 @@
-
 class Solution {
     public List<Integer> findAnagrams(String s, String p) {
+        int[] pfreq = new int[26];
+        int[] sfreq = new int[26];
         List<Integer> ans = new ArrayList<>();
-
-        if (p.length() > s.length()) {
+        int n = p.length();
+        int m = s.length();
+        if(n>m){
             return ans;
         }
-
-        int[] pFreq = new int[26];
-        int[] sFreq = new int[26];
-
-        for (int i = 0; i < p.length(); i++) {
-            pFreq[p.charAt(i) - 'a']++;
-            sFreq[s.charAt(i) - 'a']++;
+        for (int i = 0; i < n; i++) {
+            pfreq[p.charAt(i) - 'a']++;
         }
-
-        int k = p.length();
-
-        for (int high = k; high < s.length(); high++) {
-            if (Arrays.equals(pFreq, sFreq)) {
-                ans.add(high - k);
+        int low = 0;
+        int high = n-1;
+        for (int i = low; i <= high; i++) {
+            sfreq[s.charAt(i) - 'a']++;
+        }
+        while (high < m) {
+            if (Arrays.equals(sfreq, pfreq)) {
+                ans.add(low);
             }
 
-            sFreq[s.charAt(high) - 'a']++;
-            sFreq[s.charAt(high - k) - 'a']--;
+            sfreq[s.charAt(low) - 'a']--;
+            low++;
+            high++;
+            if(high>=m){
+                break;
+            }
+            sfreq[s.charAt(high) - 'a']++;
         }
-
-        if (Arrays.equals(pFreq, sFreq)) {
-            ans.add(s.length() - k);
-        }
-
         return ans;
     }
 }
