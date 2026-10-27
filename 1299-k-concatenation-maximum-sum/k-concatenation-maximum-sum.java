@@ -1,46 +1,46 @@
-
 class Solution {
     public int kConcatenationMaxSum(int[] arr, int k) {
-        int MOD = 1_000_000_007;
         int n = arr.length;
-        long totalSum = 0;
-
-        for (int num : arr) {
-            totalSum += num;
+        int maxsum1 = 0;
+        int bestending = 0;
+        int sum = 0;
+        
+        for(int i=0;i<n;i++){
+            int v1 = arr[i];
+            int v2 = arr[i] + bestending;
+            bestending = Math.max(v2,v1);
+            maxsum1 = Math.max(bestending,maxsum1);
+            sum += arr[i];
+            
         }
-
-        int[] arr2 = new int[2 * n];
-
-        for (int i = 0; i < 2 * n; i++) {
-            arr2[i] = arr[i % n];
+        if(k==1){
+            return maxsum1;
         }
-
-        long curr = 0;
-        long max2 = 0;
-
-        for (int num : arr2) {
-            curr = Math.max(0, curr + num);
-            max2 = Math.max(max2, curr);
-        }
-
-        long ans;
-
-        if (k == 1) {
-            ans = 0;
-            curr = 0;
-
-            for (int num : arr) {
-                curr = Math.max(0, curr + num);
-                ans = Math.max(ans, curr);
+        int[] arr2 = new int[2*n];
+        for(int i=0;i<2*n;i++){
+            if(i>=n){
+                arr2[i] = arr[i-n];
             }
-        } else {
-            ans = max2;
-
-            if (totalSum > 0) {
-                ans += (long) (k - 2) * totalSum;
+            else{
+                arr2[i] = arr[i];
             }
         }
+        int bestending2 = 0;
+        long maxsum2 = 0;
+        for(int i=0;i<n*2;i++){
+            int v1 = arr2[i];
+            int v2 = bestending2 + arr2[i];
+            bestending2 = Math.max(v1,v2);
+            maxsum2 = Math.max(maxsum2,bestending2);
+        }
+        
+        if(sum>0){
+            maxsum2 += (long)sum*(k-2);
+        }
+        long ans = maxsum2;
+        return (int)(ans % 1_000_000_007);
 
-        return (int) (ans % MOD);
+
+        
     }
 }
