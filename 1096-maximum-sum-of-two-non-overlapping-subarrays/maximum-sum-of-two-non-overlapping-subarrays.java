@@ -1,8 +1,8 @@
 class Solution {
     public int maxSumTwoNoOverlap(int[] nums, int firstLen, int secondLen) {
-        int firstOrder = calculate(nums, firstLen, secondLen);
+        
         int secondOrder = calculate(nums, secondLen, firstLen);
-
+        int firstOrder = calculate(nums, firstLen, secondLen);
         return Math.max(firstOrder, secondOrder);
     }
 
