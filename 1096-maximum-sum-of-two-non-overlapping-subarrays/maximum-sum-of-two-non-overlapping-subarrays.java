@@ -1,11 +1,4 @@
 class Solution {
-    public int maxSumTwoNoOverlap(int[] nums, int firstLen, int secondLen) {
-        
-        int secondOrder = calculate(nums, secondLen, firstLen);
-        int firstOrder = calculate(nums, firstLen, secondLen);
-        return Math.max(firstOrder, secondOrder);
-    }
-
     // L-length window comes before M-length window
     private int calculate(int[] nums, int L, int M) {
         int n = nums.length;
@@ -38,4 +31,12 @@ class Solution {
 
         return answer;
     }
+
+    public int maxSumTwoNoOverlap(int[] nums, int firstLen, int secondLen) {
+
+        int secondOrder = calculate(nums, secondLen, firstLen);
+        int firstOrder = calculate(nums, firstLen, secondLen);
+        return Math.max(firstOrder, secondOrder);
+    }
+
 }
